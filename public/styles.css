@@ -1,0 +1,498 @@
+/* ================== BASE ================== */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f7f9fc;
+  color: #333;
+}
+
+/* CLASE PARA OCULTAR PANTALLAS */
+.oculto {
+  display: none !important;
+}
+
+/* ================== HEADER ================== */
+header {
+  background: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+header h1 {
+  font-size: 1.5rem;
+}
+
+nav button {
+  margin-left: 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background: #f0f0f0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* ================== HERO ================== */
+.hero {
+  background: #e6efff;
+  padding: 3rem;
+  text-align: center;
+}
+
+.hero h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero button {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* ================== BUSCADOR ================== */
+.buscador {
+  text-align: center;
+  padding: 1rem;
+}
+
+.buscador input {
+  width: 60%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+/* ================== CATEGORÍAS ================== */
+.categorias {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  flex-wrap: wrap;
+}
+
+.categorias button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  cursor: pointer;
+  background: white;
+}
+
+.categorias button.activo {
+  background: #2563eb;
+  color: white;
+}
+
+/* ================== GRID PRODUCTOS ================== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.producto {
+  background: white;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 0 6px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.producto img {
+  max-width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.producto h3 {
+  margin: 0.5rem 0;
+}
+
+.producto p {
+  color: #666;
+}
+
+.producto button {
+  margin-top: 0.5rem;
+  background: #111827;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* ================== FORMULARIO GESTIONAR ================== */
+.form-panel {
+  padding: 2rem;
+  background: #fff;
+  margin: 2rem auto;
+  max-width: 400px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
+}
+
+.form-panel input,
+.form-panel select {
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* ================== CARRITO PRO ================== */
+
+#carrito {
+  max-width: 1000px;
+  margin: 2rem auto;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 18px 35px rgba(15, 23, 42, 0.13);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Encabezado azul */
+.carrito-header {
+  background: #2563eb;
+  color: #ffffff;
+  padding: 1rem 1.5rem;
+}
+
+.carrito-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  letter-spacing: .03em;
+}
+
+/* Contenido gris claro */
+.carrito-contenido {
+  background: #f9fafb;
+}
+
+/* Fila de títulos */
+.carrito-tabla-encabezado {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr 1fr 40px;
+  padding: 0.9rem 1.5rem;
+  background: #e5edff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1f2937;
+  text-transform: uppercase;
+}
+
+/* Contenedor de filas */
+#carrito-lista {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Cada fila del carrito */
+.cart-row {
+  display: grid;
+  grid-template-columns: 3fr 1fr 1fr 1fr 40px;
+  align-items: center;
+  padding: 0.9rem 1.5rem;
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+}
+
+.cart-row:nth-child(odd) {
+  background: #fdfefe;
+}
+
+/* Columna producto (imagen + nombre) */
+.cart-product {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cart-product img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.cart-name {
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* Columna precio */
+.cart-price {
+  font-weight: 500;
+  color: #111827;
+  font-size: 0.95rem;
+}
+
+/* Columna cantidad */
+.cart-qty input {
+  width: 64px;
+  padding: 0.25rem 0.4rem;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+/* Columna total por ítem */
+.cart-item-total {
+  font-weight: 500;
+  color: #111827;
+  font-size: 0.95rem;
+}
+
+/* Columna eliminar */
+.cart-remove {
+  text-align: center;
+}
+
+.btn-remove {
+  border: none;
+  background: transparent;
+  color: #ef4444;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+/* Footer del carrito */
+.carrito-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem 1.25rem;
+  border-top: 1px solid #e5e7eb;
+  background: #f3f4f6;
+}
+
+.carrito-total-texto {
+  font-size: 0.95rem;
+  color: #4b5563;
+}
+
+.carrito-total-valor {
+  margin-left: 0.25rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2563eb;
+}
+
+.carrito-acciones {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.carrito-acciones button {
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  border: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+#btn-pagar {
+  background: #111827;
+  color: #ffffff;
+}
+
+#btn-pagar:hover {
+  background: #020617;
+}
+
+#volver-catalogo {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+#volver-catalogo:hover {
+  background: #d1d5db;
+}
+
+/* ================== DETALLE DE PRODUCTO ================== */
+
+.detalle {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.detalle-contenido {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.detalle-contenido img {
+  width: 280px;
+  max-width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.detalle-info {
+  flex: 1;
+}
+
+.detalle-info h2 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  color: #111827;
+}
+
+.detalle-info p {
+  margin: 0.4rem 0;
+  color: #4b5563;
+}
+
+.detalle-precio {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #2563eb;
+  margin-top: 0.8rem;
+}
+
+.btn-primario {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-primario:hover {
+  background-color: #1e40af;
+}
+
+.btn-volver {
+  align-self: flex-start;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.btn-volver:hover {
+  background: #e5e7eb;
+}
+
+.btn-detalle {
+  margin-top: 0.4rem;
+  background: #f3f4f6;
+  color: #111827;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.btn-detalle:hover {
+  background: #e5e7eb;
+}
+
+/* ================== HISTORIAL ================== */
+
+#historial {
+  background-color: #ffffff;
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+#historial h2 {
+  font-size: 1.8rem;
+  color: #111827;
+  text-align: center;
+}
+
+#historial-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.compra {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  background-color: #f9fafb;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.compra-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.compra-total {
+  font-weight: 600;
+  color: #2563eb;
+  margin-top: 0.25rem;
+}
+
+.compra-items {
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+  font-size: 0.95rem;
+  color: #374151;
+}
+
+#historial-volver {
+  align-self: flex-start;
+  margin-top: 0.5rem;
+  padding: 0.6rem 1rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: background 0.3s;
+}
+
+#historial-volver:hover {
+  background-color: #1e40af;
+}

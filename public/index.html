@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tu Styles</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1><span>🛍️</span> Tu Styles</h1>
+    <nav>
+      <button id="gestionar">Gestionar Productos</button>
+      <button id="carrito-btn">🛒 Carrito (<span id="cantidad-carrito">0</span>)</button>
+      <button id="historial-btn">Historial</button>
+    </nav>
+  </header>
+
+  <!-- PANTALLA DE CATÁLOGO COMPLETA -->
+  <div id="pantalla-catalogo">
+    <section class="hero">
+      <h2>Descubre Tu Estilo Urbano</h2>
+      <p>Moda juvenil con actitud. Encuentra las últimas tendencias en ropa urbana.</p>
+      <button class="ver-coleccion">Ver Colección</button>
+    </section>
+
+    <section class="buscador">
+      <input type="text" id="busqueda" placeholder="🔍 Buscar productos...">
+    </section>
+
+    <section class="categorias" id="categorias">
+      <button class="activo" data-cat="todos">Todas</button>
+      <button data-cat="camisas">Camisas</button>
+      <button data-cat="pantalones">Pantalones</button>
+      <button data-cat="calzado">Calzado</button>
+      <button data-cat="chaquetas">Chaquetas</button>
+      <button data-cat="accesorios">Accesorios</button>
+    </section>
+
+    <main id="catalogo">
+      <section id="productos" class="grid"></section>
+    </main>
+  </div>
+
+  <!-- PANTALLA GESTIONAR PRODUCTOS -->
+  <section id="formulario-producto" class="oculto form-panel">
+    <h2>Agregar nuevo producto</h2>
+    <form id="form-nuevo">
+      <input type="text" id="nombre" placeholder="Nombre del producto" required><br>
+      <input type="number" id="precio" placeholder="Precio" required><br>
+      <select id="categoria">
+        <option value="camisas">Camisas</option>
+        <option value="pantalones">Pantalones</option>
+        <option value="calzado">Calzado</option>
+        <option value="chaquetas">Chaquetas</option>
+        <option value="accesorios">Accesorios</option>
+      </select><br>
+      <input type="file" id="imagen" accept="image/*" required><br>
+      <button type="submit">Agregar Producto</button>
+    </form>
+  </section>
+
+  <!-- PANTALLA CARRITO PRO -->
+  <section id="carrito" class="oculto">
+  <div class="carrito-header">
+    <h2>Tu Carrito</h2>
+  </div>
+
+  <div class="carrito-contenido">
+    <div class="carrito-tabla-encabezado">
+      <span>Producto</span>
+      <span>Precio</span>
+      <span>Cantidad</span>
+      <span>Total</span>
+      <span></span>
+    </div>
+
+    <div id="carrito-lista"></div>
+
+    <div class="carrito-footer">
+      <div class="carrito-total-texto">
+        Total:
+        <span class="carrito-total-valor">$<span id="total">0</span></span>
+      </div>
+      <div class="carrito-acciones">
+        <button id="btn-pagar">Simular pago</button>
+        <button id="volver-catalogo">← Volver al catálogo</button>
+      </div>
+    </div>
+  </div>
+</section>
+    <section id="detalle-producto" class="oculto detalle">
+    <button id="detalle-volver" class="btn-volver">← Volver al catálogo</button>
+
+    <div class="detalle-contenido">
+      <img id="detalle-imagen" alt="Producto seleccionado">
+
+      <div class="detalle-info">
+        <h2 id="detalle-nombre"></h2>
+        <p id="detalle-descripcion"></p>
+        <p class="detalle-precio">
+          Precio: $<span id="detalle-precio"></span>
+        </p>
+        <button id="detalle-agregar" class="btn-primario">
+          Agregar al carrito
+        </button>
+      </div>
+    </div>
+  </section>
+  
+  <section id="historial" class="oculto">
+  <h2>📂 Historial de compras</h2>
+  <div id="historial-lista"></div>
+  <button id="historial-volver">← Volver al catálogo</button>
+</section>
+
+
+  <section id="carrito">...</section>
+  <section id="detalle-producto" ...>...</section>
+  <script src="app.js"></script>
+</body>
+</html>
