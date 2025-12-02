@@ -1,4 +1,4 @@
-const productos = [
+const productosBase = [
     {
       id: 1,
       nombre: "Camisa Denim",

@@ -1,1 +1,54 @@
-[]
+[
+  {
+    "id": 1763526369324,
+    "fecha": "2025-11-19T04:26:09.324Z",
+    "items": [
+      {
+        "id": 1763176265599,
+        "nombre": "Tenis Adidas",
+        "precio": 1500,
+        "cantidad": 1
+      }
+    ],
+    "total": 1500
+  },
+  {
+    "id": 1763527600303,
+    "fecha": "2025-11-19T04:46:40.303Z",
+    "items": [
+      {
+        "id": 1763176265599,
+        "nombre": "Tenis Adidas",
+        "precio": 1500,
+        "cantidad": 1
+      }
+    ],
+    "total": 1500
+  },
+  {
+    "id": 1763567569637,
+    "fecha": "2025-11-19T15:52:49.637Z",
+    "items": [
+      {
+        "id": 1763532203336,
+        "nombre": "Anillos kit de 9",
+        "precio": 2000,
+        "cantidad": 1
+      }
+    ],
+    "total": 2000
+  },
+  {
+    "id": 1764085052598,
+    "fecha": "2025-11-25T15:37:32.598Z",
+    "items": [
+      {
+        "id": 1763529803552,
+        "nombre": "Pantalon Cargo Mujer",
+        "precio": 500,
+        "cantidad": 1
+      }
+    ],
+    "total": 500
+  }
+]

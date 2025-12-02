@@ -13,6 +13,8 @@
       <button id="gestionar">Gestionar Productos</button>
       <button id="carrito-btn">🛒 Carrito (<span id="cantidad-carrito">0</span>)</button>
       <button id="historial-btn">Historial</button>
+      <button id="btn-favoritos">Favoritos</button>
+      <button id="btn-contacto">Contacto</button>
     </nav>
   </header>
 
@@ -62,34 +64,36 @@
 
   <!-- PANTALLA CARRITO PRO -->
   <section id="carrito" class="oculto">
-  <div class="carrito-header">
-    <h2>Tu Carrito</h2>
-  </div>
-
-  <div class="carrito-contenido">
-    <div class="carrito-tabla-encabezado">
-      <span>Producto</span>
-      <span>Precio</span>
-      <span>Cantidad</span>
-      <span>Total</span>
-      <span></span>
+    <div class="carrito-header">
+      <h2>Tu Carrito</h2>
     </div>
 
-    <div id="carrito-lista"></div>
-
-    <div class="carrito-footer">
-      <div class="carrito-total-texto">
-        Total:
-        <span class="carrito-total-valor">$<span id="total">0</span></span>
+    <div class="carrito-contenido">
+      <div class="carrito-tabla-encabezado">
+        <span>Producto</span>
+        <span>Precio</span>
+        <span>Cantidad</span>
+        <span>Total</span>
+        <span></span>
       </div>
-      <div class="carrito-acciones">
-        <button id="btn-pagar">Simular pago</button>
-        <button id="volver-catalogo">← Volver al catálogo</button>
+
+      <div id="carrito-lista"></div>
+
+      <div class="carrito-footer">
+        <div class="carrito-total-texto">
+          Total:
+          <span class="carrito-total-valor">$<span id="total">0</span></span>
+        </div>
+        <div class="carrito-acciones">
+          <button id="btn-pagar">Simular pago</button>
+          <button id="volver-catalogo">← Volver al catálogo</button>
+        </div>
       </div>
     </div>
-  </div>
-</section>
-    <section id="detalle-producto" class="oculto detalle">
+  </section>
+
+  <!-- PANTALLA DETALLE PRODUCTO -->
+  <section id="detalle-producto" class="oculto detalle">
     <button id="detalle-volver" class="btn-volver">← Volver al catálogo</button>
 
     <div class="detalle-contenido">
@@ -104,19 +108,36 @@
         <button id="detalle-agregar" class="btn-primario">
           Agregar al carrito
         </button>
+        <button id="detalle-fav" class="btn-primario">
+        ♡ Agregar a favoritos
+      </button>
       </div>
     </div>
   </section>
-  
+
+  <!-- PANTALLA HISTORIAL -->
   <section id="historial" class="oculto">
-  <h2>📂 Historial de compras</h2>
-  <div id="historial-lista"></div>
-  <button id="historial-volver">← Volver al catálogo</button>
+    <h2>Historial de compras</h2>
+    <div id="historial-lista"></div>
+    <button id="historial-volver">← Volver al catálogo</button>
+  </section>
+  <!-- Favoritos -->
+<section id="favoritos" class="oculto">
+  <h2>Tus favoritos</h2>
+  <div id="favoritos-lista" class="grid"></div>
+  <button id="favoritos-volver">← Volver al catálogo</button>
 </section>
 
+<!-- PANTALLA CONTACTO -->
+<section id="pantalla-contacto" class="oculto detalle">
+  <button id="contacto-volver" class="btn-volver">← Volver al catálogo</button>
+  <div class="detalle-info">
+    <h2>Contacto</h2>
+    <p>Si tienes dudas sobre tu pedido o productos, puedes escribir a:</p>
+    <p><strong>Email:</strong> contacto@tustyles.com</p>
+    <p><strong>WhatsApp:</strong> 4351043736</p>
+  </div>
 
-  <section id="carrito">...</section>
-  <section id="detalle-producto" ...>...</section>
   <script src="app.js"></script>
 </body>
 </html>
