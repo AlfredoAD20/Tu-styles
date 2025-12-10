@@ -15,6 +15,7 @@
       <button id="historial-btn">Historial</button>
       <button id="btn-favoritos">Favoritos</button>
       <button id="btn-contacto">Contacto</button>
+      <button id="perfil-btn">Perfil</button>
     </nav>
   </header>
 
@@ -78,7 +79,7 @@
       </div>
 
       <div id="carrito-lista"></div>
-
+      <div id="checkout-perfil-resumen" class="checkout-perfil"></div>
       <div class="carrito-footer">
         <div class="carrito-total-texto">
           Total:
@@ -89,6 +90,39 @@
           <button id="volver-catalogo">← Volver al catálogo</button>
         </div>
       </div>
+    </div>
+  </section>
+
+    <!-- PANTALLA CHECKOUT / CONFIRMACIÓN -->
+  <section id="checkout" class="oculto checkout">
+    <button id="checkout-volver" class="btn-volver">← Volver al carrito</button>
+
+    <div class="checkout-body">
+      <!-- Resumen del pedido -->
+      <div class="checkout-left">
+        <h2>Confirma tu pedido</h2>
+        <div id="checkout-items" class="checkout-items"></div>
+        <p class="checkout-total">
+          Total: <strong>$<span id="checkout-total">0.00</span></strong>
+        </p>
+      </div>
+
+      <!-- Datos de envío -->
+      <div class="checkout-right">
+        <h3>Dirección de envío</h3>
+        <div id="checkout-perfil" class="checkout-perfil-box">
+          <p>Completa tu perfil para usarlo como dirección de envío.</p>
+        </div>
+        <button id="checkout-ir-perfil" class="btn-primario btn-sm">
+          Editar perfil de envío
+        </button>
+      </div>
+    </div>
+
+    <div class="checkout-footer">
+      <button id="checkout-confirmar" class="btn-primario grande">
+        Confirmar pedido
+      </button>
     </div>
   </section>
 
@@ -137,7 +171,28 @@
     <p><strong>Email:</strong> contacto@tustyles.com</p>
     <p><strong>WhatsApp:</strong> 4351043736</p>
   </div>
+</section>
+<!-- PANTALLA PERFIL -->
+<section id="perfil" class="oculto detalle">
+  <button id="perfil-volver" class="btn-volver">← Volver al catálogo</button>
+
+  <div class="detalle-info">
+    <h2>Perfil de envío</h2>
+    <p>Guardaremos estos datos para tus próximos pedidos.</p>
+
+    <form id="perfil-form">
+      <input type="text"   name="nombre"    placeholder="Nombre completo" required>
+      <input type="email"  name="email"     placeholder="Correo"         required>
+      <input type="tel"    name="telefono"  placeholder="Teléfono"       required>
+      <input type="text"   name="colonia"   placeholder="Colonia"        required>
+      <input type="text"   name="ciudad"    placeholder="Ciudad"         required>
+      <input type="text"   name="cp"        placeholder="Código postal"  required>
+      <button type="submit" class="btn-primario">Guardar perfil</button>
+    </form>
+  </div>
+</section>
 
   <script src="app.js"></script>
+  <script src="profile.js"></script>
 </body>
 </html>

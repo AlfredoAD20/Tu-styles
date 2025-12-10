@@ -50,5 +50,57 @@
       }
     ],
     "total": 500
+  },
+  {
+    "id": 1764641280126,
+    "fecha": "2025-12-02T02:08:00.126Z",
+    "items": [
+      {
+        "id": 1763532203336,
+        "nombre": "Anillos kit de 9",
+        "precio": 2000,
+        "cantidad": 1
+      }
+    ],
+    "total": 2000
+  },
+  {
+    "id": 1764649161332,
+    "fecha": "2025-12-02T04:19:21.332Z",
+    "items": [
+      {
+        "id": 1763529803552,
+        "nombre": "Pantalon Cargo Mujer",
+        "precio": 500,
+        "cantidad": 1
+      }
+    ],
+    "total": 500
+  },
+  {
+    "id": 1764651771065,
+    "fecha": "2025-12-02T05:02:51.065Z",
+    "items": [
+      {
+        "id": 1763530586077,
+        "nombre": "Pantalon Palatzo Mujer",
+        "precio": 300,
+        "cantidad": 1
+      }
+    ],
+    "total": 300
+  },
+  {
+    "id": 1764651771105,
+    "fecha": "2025-12-02T05:02:51.105Z",
+    "items": [
+      {
+        "id": 1763530586077,
+        "nombre": "Pantalon Palatzo Mujer",
+        "precio": 300,
+        "cantidad": 1
+      }
+    ],
+    "total": 300
   }
 ]

@@ -13,6 +13,7 @@ const btnCarritoNav      = document.getElementById('carrito-btn');
 const btnHistorialNav    = document.getElementById('historial-btn');
 const btnFavoritosNav    = document.getElementById('btn-favoritos');
 const btnContactoNav     = document.getElementById('btn-contacto');
+const btnPerfilNav       = document.getElementById('perfil-btn');
 
 // Catálogo
 const inputBusqueda      = document.getElementById('busqueda');
@@ -24,6 +25,15 @@ const totalSpan          = document.getElementById('total');
 const carritoContador    = document.getElementById('cantidad-carrito');
 const btnPagar           = document.getElementById('btn-pagar');
 const btnVolverCatalogo  = document.getElementById('volver-catalogo');
+// Checkout / Confirmación
+const seccionCheckout      = document.getElementById('checkout');
+const checkoutLista        = document.getElementById('checkout-items');
+const checkoutTotalSpan    = document.getElementById('checkout-total');
+const checkoutPerfilBox    = document.getElementById('checkout-perfil');
+const checkoutBtnConfirmar = document.getElementById('checkout-confirmar');
+const checkoutBtnVolver    = document.getElementById('checkout-volver');
+const checkoutIrPerfilBtn  = document.getElementById('checkout-ir-perfil');
+
 
 // Gestión de productos
 const formularioPanel    = document.getElementById('formulario-producto');
@@ -54,13 +64,21 @@ const seccionContacto    = document.getElementById('pantalla-contacto');
 const btnContactoVolver  = document.getElementById('contacto-volver');
 // En este HTML ya no tienes formulario, solo info estática:
 const contactoForm       = document.getElementById('contacto-form'); // será null, pero no pasa nada
+// Perfil
+const seccionPerfil   = document.getElementById('perfil');
+const perfilForm      = document.getElementById('perfil-form');
+const btnPerfilVolver = document.getElementById('perfil-volver');
+
+// Envío / perfil en checkout
+const checkoutPerfilResumen = document.getElementById('checkout-perfil-resumen');
 
 // =================== ESTADO EN MEMORIA ===================
 
 let productos      = [];
 let carrito        = [];
 let productoActual = null;
-
+let perfilEnvio = null;
+let perfilDatos = null;
 // Favoritos en localStorage
 let favoritos = [];
 try {
@@ -78,7 +96,9 @@ const seccionesPantalla = [
   seccionHistorial,
   seccionDetalle,
   seccionFavoritos,
-  seccionContacto
+  seccionContacto,
+  seccionPerfil,
+  seccionCheckout
 ].filter(Boolean);
 
 function mostrarSolo(seccion) {
@@ -92,6 +112,65 @@ function mostrarSolo(seccion) {
 
 function irACatalogo() {
   mostrarSolo(pantallaCatalogo);
+}
+
+// ==== PERFIL DE ENVÍO → CHECKOUT ====
+
+// Llama al backend y guarda el perfil en memoria
+async function cargarPerfilEnvio() {
+  try {
+    const res = await fetch(`${API_URL}/profile`);   // usa la misma ruta que en profile.js
+    if (!res.ok) {
+      perfilEnvio = null;
+      pintarPerfilEnvioEnCheckout();
+      return null;
+    }
+
+    perfilEnvio = await res.json();
+    pintarPerfilEnvioEnCheckout();
+    return perfilEnvio;
+  } catch (err) {
+    console.error('Error cargando perfil de envío:', err);
+    perfilEnvio = null;
+    pintarPerfilEnvioEnCheckout();
+    return null;
+  }
+}
+
+// Rellena el cuadrito del carrito con el domicilio
+function pintarPerfilEnvioEnCheckout() {
+  if (!checkoutPerfilResumen) return;
+
+  // Sin perfil guardado
+  if (!perfilEnvio) {
+    checkoutPerfilResumen.innerHTML = `
+      <div class="checkout-perfil-empty">
+        <p>No has guardado tu perfil de envío.</p>
+        <button id="btn-ir-perfil-desde-checkout" class="btn-primario">
+          Completar perfil
+        </button>
+      </div>
+    `;
+
+    const btnIrPerfil = document.getElementById('btn-ir-perfil-desde-checkout');
+    if (btnIrPerfil && typeof mostrarSolo === 'function') {
+      btnIrPerfil.onclick = () => mostrarSolo(seccionPerfil);
+    }
+    return;
+  }
+
+  // Con perfil guardado
+  const p = perfilEnvio;
+
+  checkoutPerfilResumen.innerHTML = `
+    <div class="checkout-perfil-card">
+      <h3>Enviaremos a:</h3>
+      <p><strong>${p.nombre}</strong></p>
+      <p>${p.colonia}, ${p.ciudad}</p>
+      <p>C.P. ${p.cp}</p>
+      <p>Tel: ${p.telefono}</p>
+    </div>
+  `;
 }
 
 // =================== HELPERS BACKEND ===================
@@ -207,6 +286,133 @@ function actualizarEstadoFavDetalle() {
     btnDetalleFavorito.textContent = '☆ Guardar favorito';
     btnDetalleFavorito.classList.remove('activo');
   }
+}
+// =================== CHECKOUT / CONFIRMACIÓN DE PEDIDO ===================
+
+function renderCheckoutResumen() {
+  if (!checkoutLista) return;
+
+  checkoutLista.innerHTML = '';
+  let total = 0;
+
+  carrito.forEach(item => {
+    const subtotal = Number(item.precio) * item.cantidad;
+    total += subtotal;
+
+    const row = document.createElement('div');
+    row.classList.add('checkout-row');
+    row.innerHTML = `
+      <span>${item.nombre}</span>
+      <span>x${item.cantidad}</span>
+      <span>$${Number(item.precio).toFixed(2)}</span>
+      <span>$${subtotal.toFixed(2)}</span>
+    `;
+    checkoutLista.appendChild(row);
+  });
+
+  if (checkoutTotalSpan) {
+    checkoutTotalSpan.textContent = total.toFixed(2);
+  }
+}
+
+// Usamos los valores ACTUALES del formulario de perfil como vista previa
+function renderCheckoutPerfil() {
+  if (!checkoutPerfilBox) return;
+
+  if (perfilForm) {
+    const data = new FormData(perfilForm);
+    const nombre   = data.get('nombre')   || '(sin nombre)';
+    const email    = data.get('email')    || '(sin correo)';
+    const telefono = data.get('telefono') || '(sin teléfono)';
+    const colonia  = data.get('colonia')  || '';
+    const ciudad   = data.get('ciudad')   || '';
+    const cp       = data.get('cp')       || '';
+
+    checkoutPerfilBox.innerHTML = `
+      <p><strong>${nombre}</strong></p>
+      <p>${email} · ${telefono}</p>
+      <p>${colonia}, ${ciudad}, CP ${cp}</p>
+    `;
+  } else {
+    checkoutPerfilBox.innerHTML = '<p>No hay información de perfil guardada.</p>';
+  }
+}
+
+function abrirCheckout() {
+  if (!carrito.length) {
+    alert('Tu carrito está vacío.');
+    return;
+  }
+  renderCheckoutResumen();
+  renderCheckoutPerfil();
+  mostrarSolo(seccionCheckout);
+}
+
+// Botón "Volver al carrito" dentro del checkout
+if (checkoutBtnVolver) {
+  checkoutBtnVolver.addEventListener('click', () => {
+    mostrarSolo(seccionCarrito);
+  });
+}
+
+// Botón "Editar perfil" desde el checkout
+if (checkoutIrPerfilBtn) {
+  checkoutIrPerfilBtn.addEventListener('click', () => {
+    mostrarSolo(seccionPerfil);
+  });
+}
+
+// Confirmar pedido (aquí sí se manda al backend)
+if (checkoutBtnConfirmar) {
+  checkoutBtnConfirmar.addEventListener('click', async () => {
+    if (!carrito.length) {
+      alert('Tu carrito está vacío.');
+      return;
+    }
+
+    const total = carrito.reduce(
+      (acc, item) => acc + Number(item.precio) * item.cantidad,
+      0
+    );
+
+    const payload = {
+      items: carrito.map(item => ({
+        id: item.id,
+        nombre: item.nombre,
+        precio: item.precio,
+        cantidad: item.cantidad
+      })),
+      total
+    };
+
+    try {
+      const res = await fetch(`${API_URL}/orders`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (!res.ok) {
+        throw new Error('Error en el servidor al registrar la orden');
+      }
+
+      const orden = await res.json();
+
+      alert(
+        `✅ Pedido confirmado.\n\n` +
+        `Número de orden: ${orden.id}\n` +
+        `Total pagado: $${Number(orden.total).toFixed(2)}`
+      );
+
+      carrito = [];
+      renderCarrito();
+      actualizarCarritoContador();
+      irACatalogo();
+    } catch (err) {
+      console.error('Error simulando pago:', err);
+      alert('Ocurrió un error al confirmar el pedido. Inténtalo de nuevo.');
+    }
+  });
 }
 
 // =================== CARRITO (SOLO FRONTEND) ===================
@@ -500,7 +706,19 @@ if (formNuevo) {
   };
 }
 
-// =================== NAVEGACIÓN: CARRITO / HISTORIAL / FAVORITOS / CONTACTO ===================
+// =================== NAVEGACIÓN: CARRITO / HISTORIAL / FAVORITOS / CONTACTO / perfil ===================
+// Perfil
+if (btnPerfilNav && seccionPerfil) {
+  btnPerfilNav.addEventListener('click', () => {
+    mostrarSolo(seccionPerfil);
+  });
+}
+// Perfil: volver al catálogo
+if (btnPerfilVolver) {
+  btnPerfilVolver.addEventListener('click', () => {
+    irACatalogo();
+  });
+}
 
 // Carrito
 if (btnCarritoNav && seccionCarrito) {
@@ -582,13 +800,86 @@ if (btnDetalleFavorito) {
     renderProductos(productos); // para actualizar corazones en catálogo
   });
 }
+// =================== CHECKOUT / CONFIRMACIÓN DE PEDIDO ===================
 
-// =================== SIMULAR PAGO ===================
+function renderCheckoutResumen() {
+  if (!checkoutLista) return;
 
-if (btnPagar) {
-  btnPagar.addEventListener('click', async () => {
-    if (carrito.length === 0) {
-      alert('Tu carrito está vacío. Agrega productos antes de pagar.');
+  checkoutLista.innerHTML = '';
+  let total = 0;
+
+  carrito.forEach(item => {
+    const subtotal = Number(item.precio) * item.cantidad;
+    total += subtotal;
+
+    const row = document.createElement('div');
+    row.classList.add('checkout-row');
+    row.innerHTML = `
+      <span>${item.nombre}</span>
+      <span>x${item.cantidad}</span>
+      <span>$${Number(item.precio).toFixed(2)}</span>
+      <span>$${subtotal.toFixed(2)}</span>
+    `;
+    checkoutLista.appendChild(row);
+  });
+
+  if (checkoutTotalSpan) {
+    checkoutTotalSpan.textContent = total.toFixed(2);
+  }
+}
+
+// Usamos los valores ACTUALES del formulario de perfil como vista previa
+function renderCheckoutPerfil() {
+  if (!checkoutPerfilBox) return;
+
+  if (perfilForm) {
+    const data = new FormData(perfilForm);
+    const nombre   = data.get('nombre')   || '(sin nombre)';
+    const email    = data.get('email')    || '(sin correo)';
+    const telefono = data.get('telefono') || '(sin teléfono)';
+    const colonia  = data.get('colonia')  || '';
+    const ciudad   = data.get('ciudad')   || '';
+    const cp       = data.get('cp')       || '';
+
+    checkoutPerfilBox.innerHTML = `
+      <p><strong>${nombre}</strong></p>
+      <p>${email} · ${telefono}</p>
+      <p>${colonia}, ${ciudad}, CP ${cp}</p>
+    `;
+  } else {
+    checkoutPerfilBox.innerHTML = '<p>No hay información de perfil guardada.</p>';
+  }
+}
+
+function abrirCheckout() {
+  if (!carrito.length) {
+    alert('Tu carrito está vacío.');
+    return;
+  }
+  renderCheckoutResumen();
+  renderCheckoutPerfil();
+  mostrarSolo(seccionCheckout);
+}
+
+// Botón "Volver al carrito" dentro del checkout
+if (checkoutBtnVolver) {
+  checkoutBtnVolver.addEventListener('click', () => {
+    mostrarSolo(seccionCarrito);
+  });
+}
+
+// Botón "Editar perfil" desde el checkout
+if (checkoutIrPerfilBtn) {
+  checkoutIrPerfilBtn.addEventListener('click', () => {
+    mostrarSolo(seccionPerfil);
+  });
+}
+
+// Confirmar pedido (aquí sí se manda al backend)
+if (checkoutBtnConfirmar) {
+  checkoutBtnConfirmar.addEventListener('click', async () => {
+    if (!carrito.length) {
+      alert('Tu carrito está vacío.');
       return;
     }
 
@@ -621,7 +912,7 @@ if (btnPagar) {
       const orden = await res.json();
 
       alert(
-        `✅ Pago simulado con éxito.\n\n` +
+        `✅ Pedido confirmado.\n\n` +
         `Número de orden: ${orden.id}\n` +
         `Total pagado: $${Number(orden.total).toFixed(2)}`
       );
@@ -629,13 +920,20 @@ if (btnPagar) {
       carrito = [];
       renderCarrito();
       actualizarCarritoContador();
+      irACatalogo();
     } catch (err) {
       console.error('Error simulando pago:', err);
-      alert('Ocurrió un error al simular el pago. Inténtalo de nuevo.');
+      alert('Ocurrió un error al confirmar el pedido. Inténtalo de nuevo.');
     }
   });
 }
 
+// =================== BOTÓN "SIMULAR PAGO" → ABRE CHECKOUT ===================
+if (btnPagar) {
+  btnPagar.addEventListener('click', () => {
+    abrirCheckout();
+  });
+}
 // =================== INICIALIZAR ===================
 
 (async function init() {

@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 const DATA_DIR = path.join(__dirname, 'data');
 const PRODUCTS_FILE = path.join(DATA_DIR, 'products.json');
 const ORDERS_FILE = path.join(DATA_DIR, 'orders.json');
+const CUSTOMER_FILE = path.join(DATA_DIR, 'customer.json');
 
 // Asegurarnos de que la carpeta y archivos existan
 if (!fs.existsSync(DATA_DIR)) {
@@ -93,6 +94,41 @@ app.delete('/api/products/:id', (req, res) => {
 
   escribirJson(PRODUCTS_FILE, filtrados);
   res.json({ ok: true });
+});
+
+// ================== ENDPOINTS DE PERFIL DE CLIENTE ==================
+
+// GET /api/customer - obtener perfil actual (un solo cliente)
+app.get('/api/customer', (req, res) => {
+  try {
+    const perfil = leerJson(CUSTOMER_FILE);
+    // Si el archivo está vacío o con {}, regresamos objeto vacío
+    if (!perfil || typeof perfil !== 'object') {
+      return res.json({});
+    }
+    res.json(perfil);
+  } catch (e) {
+    // Si el archivo no existe o hay error, regresamos objeto vacío
+    res.json({});
+  }
+});
+
+// POST /api/customer - crear o actualizar perfil
+app.post('/api/customer', (req, res) => {
+  const data = req.body || {};
+
+  const perfil = {
+    nombre:   data.nombre   || '',
+    email:    data.email    || '',
+    telefono: data.telefono || '',
+    direccion:data.direccion|| '',
+    ciudad:   data.ciudad   || '',
+    cp:       data.cp       || '',
+    actualizadoEn: new Date().toISOString()
+  };
+
+  escribirJson(CUSTOMER_FILE, perfil);
+  res.status(201).json(perfil);
 });
 
 // ================== ENDPOINTS DE ÓRDENES ==================

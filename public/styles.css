@@ -552,3 +552,152 @@ nav button {
   color: #6b7280;
   margin-top: 4px;
 }
+/* ======== PERFIL DE ENVÍO ======== */
+
+#perfil {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2.5rem 2rem 2rem;
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 18px 35px rgba(15, 23, 42, 0.08);
+}
+
+/* Botón de volver alineado a la izquierda */
+#perfil #perfil-volver {
+  margin-bottom: 1.5rem;
+}
+
+/* Título y descripción */
+#perfil .detalle-info h2 {
+  font-size: 2rem;
+  margin-bottom: 0.25rem;
+  color: #111827;
+}
+
+#perfil .detalle-info > p {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: #4b5563;
+}
+
+/* Contenedor del formulario */
+#perfil-form {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.75rem;
+  align-items: center;
+}
+
+/* Inputs del perfil */
+#perfil-form input {
+  height: 44px;
+  padding: 0 0.9rem;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.05s;
+}
+
+#perfil-form input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+}
+
+/* Botón “Guardar perfil” */
+#perfil-form .btn-primario {
+  height: 44px;
+  border-radius: 999px;
+  padding: 0 1.8rem;
+  font-size: 0.95rem;
+  justify-self: flex-start;
+  white-space: nowrap;
+}
+
+/* Versión responsive (pantallas pequeñas) */
+@media (max-width: 900px) {
+  #perfil-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  #perfil {
+    padding: 1.5rem 1.25rem 1.75rem;
+  }
+
+  #perfil-form {
+    grid-template-columns: 1fr;
+  }
+
+  #perfil-form .btn-primario {
+    width: 100%;
+    justify-self: stretch;
+    text-align: center;
+  }
+}
+/* ====== CHECKOUT / CONFIRMACIÓN ====== */
+
+.checkout {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 2rem 2.5rem 2.5rem;
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.13);
+}
+
+.checkout-body {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.checkout-items {
+  display: grid;
+  row-gap: 0.75rem;
+}
+
+.checkout-row {
+  display: grid;
+  grid-template-columns: 2fr 0.7fr 0.8fr 0.8fr;
+  font-size: 0.95rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 10px;
+  background: #f9fafb;
+}
+
+.checkout-row span:last-child {
+  text-align: right;
+}
+
+.checkout-total {
+  margin-top: 1rem;
+  font-size: 1.1rem;
+}
+
+.checkout-right h3 {
+  margin-top: 0.25rem;
+}
+
+.checkout-perfil-box {
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: #f3f4ff;
+  border-radius: 12px;
+  font-size: 0.9rem;
+}
+
+.checkout-footer {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-sm {
+  margin-top: 0.75rem;
+  padding-inline: 1.1rem;
+  font-size: 0.9rem;
+}
